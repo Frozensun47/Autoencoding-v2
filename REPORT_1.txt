@@ -1,0 +1,10 @@
+REPORT 1:
+The encoder part of the model consists of four convolutional layers with 8, 16, 32, and 64 filters respectively, each followed by a batch normalization layer and a ReLU activation function. The first layer has a kernel size of (3, 3), while the rest of the layers have a kernel size of (3, 3) and a stride of (2, 2), which downsamples the feature maps.
+The decoder part of the model consists of four up-sampling layers (using bilinear interpolation) followed by four convolutional layers with 64, 32, 16, and 8 filters respectively, each followed by a batch normalization layer and a ReLU activation function. The first layer has a kernel size of (3, 3), while the rest of the layers have a kernel size of (3, 3) and a stride of (1, 1), which upsamples the feature maps. The output layer has a sigmoid activation function, which scales the pixel values between 0 and 1.
+The model uses skip connections between the encoder and decoder to improve the gradient flow and retain more spatial information. Specifically, the output from each encoder layer is concatenated with the output from the corresponding decoder layer before the next decoder layer is applied.
+The model has a total of 1,182,019 trainable parameters.
+
+under these situation , if bathcnormalization is kept , the output of images after layer 7 vanishes , 
+
+if batch normalization is added , 
+output after layer 2 vanishes .
