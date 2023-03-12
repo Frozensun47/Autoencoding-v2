@@ -1,7 +1,7 @@
 import os
 import numpy as np
 from PIL import Image
-
+import cv2
 # Define the directory paths
 input_dir = 'Images/Train'
 output_dir = 'Images/Train_processed'
@@ -13,8 +13,8 @@ if not os.path.exists(output_dir):
 # Define the lambda function
 
 
-def func(x): return np.clip(
-    x + np.random.normal(0, 20, x.shape), 0, 255)
+def func(x): return cv2.GaussianBlur(np.clip(
+    x + np.random.normal(0, 25, x.shape).astype(np.uint8), 0, 255), (5, 5), 1)
 
 
 # Loop through the images in the input directory

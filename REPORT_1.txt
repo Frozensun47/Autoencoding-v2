@@ -8,3 +8,6 @@ under these situation , if bathcnormalization is kept , the output of images aft
 
 if batch normalization is added , 
 output after layer 2 vanishes .
+
+above problem was addressed by , changing the 'sigmoid' activation in last layer by 'relu' , Also 
+i have changes all the activations to leaky relu so as to acoomodate -ve weights.

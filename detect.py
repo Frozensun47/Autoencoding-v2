@@ -2,10 +2,10 @@ from tensorflow.keras.models import load_model
 import cv2
 import numpy as np
 # Load the saved model
-model = load_model('my_model.h5')
+model = load_model('weights/my_model.h5')
 
 # Load an image
-img = cv2.imread('noise_img.png')
+img = cv2.imread('noise_img_50.png')
 img = cv2.resize(img, (256, 256))
 x = np.expand_dims(img, axis=0)/255
 
