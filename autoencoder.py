@@ -1,3 +1,4 @@
+from tensorflow.keras import backend as K
 from tensorflow.keras.callbacks import ModelCheckpoint
 from tensorflow.keras.models import Model
 from tensorflow.keras.layers import Conv2D, Input, UpSampling2D, Add, BatchNormalization
@@ -130,8 +131,6 @@ output_img = Conv2D(3, kernel_size=(
 
 model = Model(inputs=input_img, outputs=output_img)
 
-
-
 plot_model(model, to_file='model.png', show_shapes=True, show_layer_names=True)
 
 #resume trainng
@@ -148,11 +147,16 @@ model_checkpoint_callback = ModelCheckpoint(
     mode='min',
     save_best_only=True)
 
+def PSNR(y_true, y_pred):
+    max_pixel = 1.0
+    return 10.0 * K.log((max_pixel**2) / (K.mean(K.square(y_pred - y_true))))
+
+
 # Compile the model with the MSE loss
-model.compile(optimizer='adam', loss=loss_function)
+model.compile(optimizer='adam', loss=loss_function, metrics=[PSNR])
 
 # Train the model using the training data
-history = model.fit(train_generator, epochs=20, steps_per_epoch=steps_per_epoch,
+history = model.fit(train_generator, epochs=1, steps_per_epoch=steps_per_epoch,
                     verbose=1, callbacks=[model_checkpoint_callback])
 
 # Plot the training loss over the epochs
